@@ -1,51 +1,64 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, APIRequestContext } from "@playwright/test";
+import { faker } from "@faker-js/faker";
 
-test.describe.serial('Matrix - API testing', () => {
-    let xx = 1;
-    let apiContext;
-    test.beforeAll(async ({ playwright }) => {
-        apiContext = await playwright.request.newContext({
-            // All requests we send go to this API endpoint.
-            baseURL: 'http://localhost:8008',
-            extraHTTPHeaders: {
-                // We set this header per GitHub guidelines.
-                //'Accept': 'application/vnd.github.v3+json',
-                // Add authorization token to all requests.
-                // Assuming personal access token available in the environment.
-                //'Authorization':'MDAxN2xvY2F0aW9uIGxvY2FsaG9zdAowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMjZjaWQgdXNlcl9pZCA9IEBtYXRyaXhfYTpsb2NhbGhvc3QKMDAxNmNpZCB0eXBlID0gYWNjZXNzCjAwMjFjaWQgbm9uY2UgPSAwb3Y6eTZVdHojUk4jbFprCjAwMmZzaWduYXR1cmUgNNZKnOVRzj5svh9pEM0UUEqtXYnHjnj9XyNLJ1_uKoAK'
-                Authorization:
-                    'Bearer syt_YnJpZGdlYWRtaW4_JoxiEWljSnpIybaKgheJ_3grklR',
-            },
-        });
+test.describe("Matrix - API Send message", () => {
+  let apiContext: APIRequestContext;
+  
+  test.beforeAll(async ({ playwright }) => {
+    const bearer:string='Bearer '+ 'MDAxN2xvY2F0aW9uIGxvY2FsaG9zdAowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMjZjaWQgdXNlcl9pZCA9IEBtYXRyaXhfYjpsb2NhbGhvc3QKMDAxNmNpZCB0eXBlID0gYWNjZXNzCjAwMjFjaWQgbm9uY2UgPSBBYl9hbWthI0daSzgtfjdICjAwMmZzaWduYXR1cmUgOReBLkPURCMNtzORS9fpogQqVa3IWN9ZEu5gXW91QTMK'  
+    apiContext = await playwright.request.newContext({
+      // All requests we send go to this API endpoint.
+      baseURL: "http://localhost:8008",
+      extraHTTPHeaders: {
+        // We set this header per GitHub guidelines.
+        //'Accept': 'application/vnd.github.v3+json',
+        // Add authorization token to all requests.
+        // Assuming personal access token available in the environment.
+        'Authorization':bearer
+       
+      },
+    });
+  });
+
+  test("Get versions", async ({}) => {
+    const versions = await apiContext.get(`/_matrix/client/versions`, {});
+
+    expect(versions.ok()).toBeTruthy();
+    let response = await versions.json();
+  });
+
+  test("Get Public Rooms", async ({}) => {
+    const rooms = await apiContext.get(`/_matrix/client/r0/publicRooms`, {});
+    let t = rooms.statusText();
+    expect(rooms.ok()).toBeTruthy();
+    let response = await rooms.json();
+  });
+
+  test("Send messages", async ({}) => {
+    let apiResponse: any;
+    let roomAlias = encodeURIComponent("#town-square:localhost");
+    let roomId;
+    await test.step("Get the room", async () => {
+      let path = `/_matrix/client/r0/directory/room/${roomAlias}`;
+      apiResponse = await apiContext.get(`${path}`, {});
+      expect(apiResponse.ok()).toBeTruthy();
+      let json = await apiResponse.json();
+      roomId = json.room_id;
+      expect(roomId).not.toBeUndefined();
     });
 
-    test('Get versions', async ({}) => {
-        const versions = await apiContext.get(`/_matrix/client/versions`, {});
-
-        expect(versions.ok()).toBeTruthy();
-        let response = await versions.json();
-        xx = 1;
+    await test.step("Send Text Message", async () => {
+      const transactionId = faker.datatype.uuid();
+    
+      let p = encodeURIComponent(`/_matrix/client/r0/directory/room/${roomId}/m.room.message/${transactionId}`);
+      apiResponse = await apiContext.put(p, {
+          data: {
+            "body": faker.hacker.phrase(),
+            "msgtype": "m.text"
+          }
+      });
+      expect(apiResponse.ok()).toBeTruthy();
+      let json = await apiResponse.json();
     });
-
-    test('Get Public Rooms', async ({}) => {
-        const rooms = await apiContext.get(
-            `/_matrix/client/r0/publicRooms`,
-            {},
-        );
-        let t = rooms.statusText();
-        expect(rooms.ok()).toBeTruthy();
-        let response = await rooms.json();
-        xx = 1;
-    });
-    test('Get The room', async ({}) => {
-        let path='/_matrix/client/r0/directory/room/'+encodeURIComponent("#town-square:localhost");
-        const room = await apiContext.get(
-            `${path}`,
-            {},
-        );
-
-        expect(room.ok()).toBeTruthy();
-        let response = await room.json();
-        xx = 1;
-    });
+  });
 });

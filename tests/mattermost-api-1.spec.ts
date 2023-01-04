@@ -1,7 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect,APIRequestContext } from '@playwright/test';
 
 test.describe.serial('Mattermost - API testing', () => {
-    let xx = 1;
+  
     let apiContext;
     test.beforeAll(async ({ playwright }) => {
         apiContext = await playwright.request.newContext({
@@ -21,21 +21,16 @@ test.describe.serial('Mattermost - API testing', () => {
         const me = await apiContext.get(`api/v4/users/me`, {});
         expect(me.ok()).toBeTruthy();
         let response = await me.json();
-    
-
     });
 
     test('Get Users', async ({}) => {
         const me = await apiContext.get(`api/v4/users`, {});
         expect(me.ok()).toBeTruthy();
         let response = await me.json();
-        xx = 1;
     });
     test('Get Channels', async ({}) => {
         const me = await apiContext.get(`api/v4/channels`, {});
         expect(me.ok()).toBeTruthy();
         let response = await me.json();
-
-        xx = 1;
     });
 });
