@@ -1,0 +1,21 @@
+{
+  "name": "mm_as_playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janostgren/mm_as_playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janostgren/mm_as_playwright/issues"
+  },
+  "homepage": "https://github.com/janostgren/mm_as_playwright#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.29.1"
+  }
+}
