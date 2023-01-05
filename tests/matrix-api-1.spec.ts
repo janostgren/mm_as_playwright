@@ -24,14 +24,16 @@ test.describe("Matrix - API Send message", () => {
     const versions = await apiContext.get(`/_matrix/client/versions`, {});
 
     expect(versions.ok()).toBeTruthy();
-    let response = await versions.json();
+    let json = await versions.json();
+    console.log(json)
   });
 
   test("Get Public Rooms", async ({}) => {
     const rooms = await apiContext.get(`/_matrix/client/r0/publicRooms`, {});
     let t = rooms.statusText();
     expect(rooms.ok()).toBeTruthy();
-    let response = await rooms.json();
+    let json = await rooms.json();
+    console.log(json)
   });
 
   test("Send messages", async ({}) => {
@@ -48,15 +50,16 @@ test.describe("Matrix - API Send message", () => {
     });
 
     await test.step("Send Text Message", async () => {
-      const transactionId = faker.datatype.uuid();
+      const transactionId = Date.now();
     
-      let p = encodeURIComponent(`/_matrix/client/r0/directory/room/${roomId}/m.room.message/${transactionId}`);
+      let p = `/_matrix/client/r0/rooms/${roomId}/send/m.room.message/${transactionId}`;
       apiResponse = await apiContext.put(p, {
           data: {
             "body": faker.hacker.phrase(),
             "msgtype": "m.text"
           }
       });
+      let statusText=apiResponse.statusText()
       expect(apiResponse.ok()).toBeTruthy();
       let json = await apiResponse.json();
     });
