@@ -1,5 +1,6 @@
-import { test, expect, APIRequestContext } from "@playwright/test";
+import { expect, APIRequestContext } from "@playwright/test";
 import { faker } from "@faker-js/faker";
+import {test} from '../../lib/fixtures/apiProfilesFixture'
 
 test.describe("Matrix - API Send message", () => {
   let apiContext: APIRequestContext;
@@ -51,7 +52,7 @@ test.describe("Matrix - API Send message", () => {
 
     await test.step("Send Text Message", async () => {
       const transactionId = 'm.'+Date.now();
-      let message=`Strange message seen: \n${faker.hacker.phrase()}\n from ${faker.internet.email()}` 
+      let message=`**Strange message seen:** \n${faker.hacker.phrase()}\n from ${faker.internet.email()}` 
     
       let p = `/_matrix/client/r0/rooms/${roomId}/send/m.room.message/${transactionId}`;
       apiResponse = await apiContext.put(p, {
