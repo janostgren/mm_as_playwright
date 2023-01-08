@@ -1,4 +1,5 @@
-import { test, expect,APIRequestContext } from '@playwright/test';
+import {expect,APIRequestContext } from '@playwright/test';
+import {test} from '../../lib/fixtures/apiProfilesFixture'
 
 test.describe.serial('Mattermost - API testing', () => {
   
@@ -6,7 +7,7 @@ test.describe.serial('Mattermost - API testing', () => {
     test.beforeAll(async ({ playwright }) => {
         apiContext = await playwright.request.newContext({
             // All requests we send go to this API endpoint.
-            baseURL: 'http://localhost:8065/',
+            baseURL: 'http://localhost:8065',
             extraHTTPHeaders: {
                 // We set this header per GitHub guidelines.
                 //'Accept': 'application/vnd.github.v3+json',
@@ -17,10 +18,12 @@ test.describe.serial('Mattermost - API testing', () => {
         });
     });
 
-    test('Get me - bot user', async ({ request }) => {
-        const me = await apiContext.get(`api/v4/users/me`, {});
+    test('Get me', async ({ admin_mm}) => {
+        const me = await apiContext.get(`/api/v4/users/me`, {});
         expect(me.ok()).toBeTruthy();
         let response = await me.json();
+        console.log(response)
+        expect(response.username).toBe('admin')
     });
 
     test('Get Users', async ({}) => {

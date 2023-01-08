@@ -1,15 +1,21 @@
-import { test as base, APIRequestContext } from '@playwright/test';
-import {APIContextProfile} from '../models/apiContextProfile'
+import { test as base} from '@playwright/test';
+import {UserAuthProfile} from '../models/userAuthProfile'
 
-
-type MyFixtures = {
-    apiContextProfiles: Map<string,APIContextProfile>
+type MyFixtures ={
+    admin_mm:UserAuthProfile
+    matrix_a:UserAuthProfile
 }
 
+
 export const test = base.extend<MyFixtures>({
-    apiContextProfiles:  ({}, use, info) => {
+    admin_mm:  ({}, use, info) => {
         let project = info.config?.projects[0];
-        let profiles:Map<string,APIContextProfile>= new  Map<string,APIContextProfile>()
-        use(profiles);
+        let profile:UserAuthProfile = project.use['admin_mm'] 
+        use(profile);
+    },
+    matrix_a:  ({}, use, info) => {
+        let project = info.config?.projects[0];
+        let profile:UserAuthProfile = project.use['matrix_a'] 
+        use(profile);
     },
 })
