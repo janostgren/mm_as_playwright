@@ -1,6 +1,6 @@
 export interface UserAuthProfile {
   user: string;
-  baseUrl:string,
+  baseURL:string,
   password?: string;
   asToken?: string;
   bearerToken?: string;

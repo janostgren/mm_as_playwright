@@ -1,24 +1,17 @@
 import {expect,APIRequestContext } from '@playwright/test';
 import {test} from '../../lib/fixtures/apiProfilesFixture'
-
+import {MattermostApiClient} from '../../lib/apiModels/mattermostApiClient'
 test.describe.serial('Mattermost - API testing', () => {
   
     let apiContext;
-    test.beforeAll(async ({ playwright }) => {
-        apiContext = await playwright.request.newContext({
-            // All requests we send go to this API endpoint.
-            baseURL: 'http://localhost:8065',
-            extraHTTPHeaders: {
-                // We set this header per GitHub guidelines.
-                //'Accept': 'application/vnd.github.v3+json',
-                // Add authorization token to all requests.
-                // Assuming personal access token available in the environment.
-                Authorization: 'Bearer s537n3t8zib1tx7eyd44qzqnbr',
-            },
-        });
+    test.beforeAll(async ({ playwright,admin_mm }) => {
+        let mmApiClient:MattermostApiClient = new MattermostApiClient
+        (admin_mm,playwright.request)
+        apiContext =await mmApiClient.authenticate()
     });
 
-    test('Get me', async ({ admin_mm}) => {
+    test('Get me', async ({}) => {
+    
         const me = await apiContext.get(`/api/v4/users/me`, {});
         expect(me.ok()).toBeTruthy();
         let response = await me.json();
@@ -27,13 +20,15 @@ test.describe.serial('Mattermost - API testing', () => {
     });
 
     test('Get Users', async ({}) => {
-        const me = await apiContext.get(`api/v4/users`, {});
-        expect(me.ok()).toBeTruthy();
-        let response = await me.json();
+        const users = await apiContext.get(`api/v4/users`, {});
+        expect(users.ok()).toBeTruthy();
+        let response = await users.json();
+        console.log(response)
     });
     test('Get Channels', async ({}) => {
-        const me = await apiContext.get(`api/v4/channels`, {});
-        expect(me.ok()).toBeTruthy();
-        let response = await me.json();
+        const channels = await apiContext.get(`api/v4/channels`, {});
+        expect(channels.ok()).toBeTruthy();
+        let response = await channels.json();
+        console.log(response)
     });
 });

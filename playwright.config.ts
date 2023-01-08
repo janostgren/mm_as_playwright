@@ -16,10 +16,6 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
-    /**
-     * Maximum time expect() should wait for the condition to be met.
-     * For example in `await expect(locator).toHaveText();`
-     */
     timeout: 5000,
   },
   /* Run tests in files in parallel */
@@ -35,17 +31,18 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     admin_mm: {
-      user:"admin",
-      password:"User..123456",
-      baseUrl:"http://localhost:8065",
+      user: "admin",
+      password: "User..123456",
+      baseURL: "http://localhost:8065",
       domain: "localhost",
-      bearerToken : "s537n3t8zib1tx7eyd44qzqnbr",
+      bearerToken: "s537n3t8zib1tx7eyd44qzqnbr",
     },
     matrix_a: {
-      user:"matrix_a",
-      baseUrl:"http://localhost:8008",
+      user: "matrix_a",
+      baseURL: "http://localhost:8008",
       domain: "localhost",
-      bearerToken : "MDAxN2xvY2F0aW9uIGxvY2FsaG9zdAowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMjZjaWQgdXNlcl9pZCA9IEBtYXRyaXhfYjpsb2NhbGhvc3QKMDAxNmNpZCB0eXBlID0gYWNjZXNzCjAwMjFjaWQgbm9uY2UgPSBBYl9hbWthI0daSzgtfjdICjAwMmZzaWduYXR1cmUgOReBLkPURCMNtzORS9fpogQqVa3IWN9ZEu5gXW91QTMK",
+      bearerToken:
+        "MDAxN2xvY2F0aW9uIGxvY2FsaG9zdAowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMjZjaWQgdXNlcl9pZCA9IEBtYXRyaXhfYjpsb2NhbGhvc3QKMDAxNmNpZCB0eXBlID0gYWNjZXNzCjAwMjFjaWQgbm9uY2UgPSBBYl9hbWthI0daSzgtfjdICjAwMmZzaWduYXR1cmUgOReBLkPURCMNtzORS9fpogQqVa3IWN9ZEu5gXW91QTMK",
     },
 
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
@@ -59,15 +56,16 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
   },
 
   /* Configure projects for major browsers */
+  /*
   projects: [
     {
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
       },
-    },
-
-  ],
+    }
+  ]
+  */
 };
 
 export default config;

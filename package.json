@@ -17,6 +17,6 @@
   "homepage": "https://github.com/janostgren/mm_as_playwright#readme",
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@playwright/test": "^1.29.1"
+    "@playwright/test": "^1.29.2"
   }
 }
