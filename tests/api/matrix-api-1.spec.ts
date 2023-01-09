@@ -10,7 +10,7 @@ test.describe("Matrix - API Send message", () => {
   let mmContext: APIRequestContext;
   let mmApiClient: MatrixApiClient;
   let roomName: string = "town-square";
-  let hackerPhrase=faker.hacker.phrase()
+  let hackerPhrase = faker.hacker.phrase();
 
   test.beforeAll(async ({ playwright, matrix_a, admin_mm }) => {
     matrixApiClient = new MatrixApiClient(matrix_a, playwright.request);
@@ -45,8 +45,7 @@ test.describe("Matrix - API Send message", () => {
         return theRoom;
       });
 
-    
-    let theMessage=await test.step("Send Text Message", async () => {
+    let theMessage = await test.step("Send Text Message", async () => {
       const transactionId = "m." + Date.now();
       let message = `Strange message seen:\n${hackerPhrase}\n from ${faker.internet.email()}`;
 
@@ -60,10 +59,11 @@ test.describe("Matrix - API Send message", () => {
       let statusText = apiResponse.statusText();
       expect(apiResponse.ok()).toBeTruthy();
       let json = await apiResponse.json();
-      return message
+      return message;
     });
-    
+  });
 
+  test("Get the post in Mattermost", async ({}) => {
     let theChannel =
       await test.step("Get The channel from Mattermost", async () => {
         const channels = await mmContext.get(
@@ -80,24 +80,26 @@ test.describe("Matrix - API Send message", () => {
       });
 
     await test.step("Get channel messages from Mattermost", async () => {
-      let since: number = Date.now() - 3600 * 1000;
-     
+      let since: number = Date.now() - 60 * 1000;
+
       const apiResponse = await mmContext.get(
         `/api/v4/channels/${theChannel.id}/posts?page=0&per_page=200&since=${since}`,
         {}
       );
       expect(apiResponse.ok()).toBeTruthy();
       let json = await apiResponse.json();
-     
-      expect(json.order.length,"Posts found").toBeGreaterThanOrEqual(1)
-      let posts:any[] =Object.values(json.posts)
-      let thePost=posts.find (post => {
-        return post.message.includes(hackerPhrase) 
-      })
-      expect(thePost,`Post not found with message ${hackerPhrase} in channel ${roomName}`).toBeDefined()
 
-      
-      return 1
+      expect(json.order.length, "Posts found").toBeGreaterThanOrEqual(1);
+      let posts: any[] = Object.values(json.posts);
+      let thePost = posts.find((post) => {
+        return post.message.includes(hackerPhrase);
+      });
+      expect(
+        thePost,
+        `Post not found with message ${hackerPhrase} in channel ${roomName}`
+      ).toBeDefined();
+
+      return 1;
     });
   });
 });

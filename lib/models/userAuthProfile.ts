@@ -10,4 +10,5 @@ export interface UserAuthProfile {
 export interface UserAuthConfig {
   admin_mm?: UserAuthProfile
   matrix_a?: UserAuthProfile
+  matrix_user1?:UserAuthProfile
 }

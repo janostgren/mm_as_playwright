@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from "@faker-js/faker";
 
-test('Mattermost Login and send', async ({ page }) => {
+test('Mattermost send message', async ({ page }) => {
   test.setTimeout(120000);
   await page.goto('/');
   await page.goto('/landing#/');
