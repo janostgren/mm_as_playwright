@@ -1,16 +1,18 @@
-import { test, expect } from '@playwright/test';
+
+import { expect } from '@playwright/test';
+import { test} from "../../lib/fixtures/apiProfilesFixture";
 import { faker } from "@faker-js/faker";
 
-test('Mattermost send message', async ({ page }) => {
+test('Mattermost send message', async ({ page,mattermost_a }) => {
   test.setTimeout(120000);
   await page.goto('/');
   await page.goto('/landing#/');
   await page.getByRole('link', { name: 'View in Browser' }).click();
 
   await page.locator('#input_loginId').click();
-  await page.locator('#input_loginId').fill('mattermost_a');
+  await page.locator('#input_loginId').fill(mattermost_a.user);
   await page.getByPlaceholder('Password').click();
-  await page.locator('#input_password-input').fill('User..1234');
+  await page.locator('#input_password-input').fill(mattermost_a.password);
   await page.getByRole('button', { name: '󰛐' }).click();
   await page.getByTestId('saveSetting').click();
   await page.getByRole('link', { name: 'off-topic public channel' }).click();

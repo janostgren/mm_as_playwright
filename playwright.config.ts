@@ -32,10 +32,16 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
   use: {
     admin_mm: {
       user: "admin",
-      password: "User..123456",
+      password: "Admin..123456",
       baseURL: "http://localhost:8065",
       domain: "localhost",
       bearerToken: "s537n3t8zib1tx7eyd44qzqnbr",
+    },
+    mattermost_a: {
+      user: "mattermost_a",
+      password: "User..1234",
+      baseURL: "http://localhost:8065",
+      domain: "localhost"
     },
     matrix_a: {
       user: "matrix_a",
@@ -48,6 +54,9 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
       user: "user1",
       password:"User..1234",
       baseURL: "http://localhost:8008",
+      additional: {
+        elementURL:"http://localhost:8080"
+      }
     },
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,

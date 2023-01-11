@@ -2,8 +2,12 @@ import { expect } from '@playwright/test';
 import { test} from "../../lib/fixtures/apiProfilesFixture";
 
 test('Element - Post message', async ({ page,matrix_user1 }) => {
+  test.setTimeout(120000);
+  let elementURL=matrix_user1?.additional?.elementURL 
+  expect(elementURL,"ElementURL must be in additional").toBeDefined()
+
   //await page.goto('http://localhost:8080/');
-  await page.goto('http://localhost:8080/#/welcome');
+  await page.goto(`${elementURL}/#/welcome`);
   
   await page.getByRole('link', { name: 'Sign In' }).click();
   await page.getByRole('button', { name: 'Edit' }).click();
