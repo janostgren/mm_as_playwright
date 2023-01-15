@@ -35,19 +35,19 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
     admin_mm: {
       user: "admin",
       password: "Admin..123456",
-      baseURL: "http://localhost:8065",
+      baseURL: "http://ec2-54-216-207-175.eu-west-1.compute.amazonaws.com:8065",
       domain: "localhost",
       bearerToken: "s537n3t8zib1tx7eyd44qzqnbr",
     },
     mattermost_a: {
       user: "mattermost_a",
       password: "User..1234",
-      baseURL: "http://localhost:8065",
+      baseURL: "http://ec2-54-216-207-175.eu-west-1.compute.amazonaws.com:8065",
       domain: "localhost"
     },
     matrix_a: {
       user: "matrix_a",
-      baseURL: "http://localhost:8008",
+      baseURL: "http://ec2-54-216-207-175.eu-west-1.compute.amazonaws.com:8008",
       domain: "localhost",
       bearerToken:
         "MDAxN2xvY2F0aW9uIGxvY2FsaG9zdAowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMjZjaWQgdXNlcl9pZCA9IEBtYXRyaXhfYjpsb2NhbGhvc3QKMDAxNmNpZCB0eXBlID0gYWNjZXNzCjAwMjFjaWQgbm9uY2UgPSBBYl9hbWthI0daSzgtfjdICjAwMmZzaWduYXR1cmUgOReBLkPURCMNtzORS9fpogQqVa3IWN9ZEu5gXW91QTMK",
@@ -55,9 +55,9 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
     matrix_user1: {
       user: "user1",
       password:"User..1234",
-      baseURL: "http://localhost:8008",
+      baseURL: "http://ec2-54-216-207-175.eu-west-1.compute.amazonaws.com:8008",
       additional: {
-        elementURL:"http://localhost:8080"
+        elementURL:"http://ec2-54-216-207-175.eu-west-1.compute.amazonaws.com:8080"
       }
     },
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
