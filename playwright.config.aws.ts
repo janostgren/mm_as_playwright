@@ -27,7 +27,7 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: [['html'], ['github']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     actionTimeout: 10 * 1000,
@@ -68,19 +68,9 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on",
     video: "on",
+    
   },
 
-  /* Configure projects for major browsers */
-  /*
-  projects: [
-    {
-      name: "chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-      },
-    }
-  ]
-  */
 };
 
 export default config;
