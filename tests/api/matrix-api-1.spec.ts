@@ -12,10 +12,10 @@ test.describe("Matrix - API Send message", () => {
   let roomName: string = "town-square";
   let hackerPhrase = faker.hacker.phrase();
 
-  test.beforeAll(async ({ playwright, matrix_a, admin_mm }) => {
+  test.beforeAll(async ({ playwright, matrix_a, mattermost_admin }) => {
     matrixApiClient = new MatrixApiClient(matrix_a, playwright.request);
     matrixContext = await matrixApiClient.authenticate();
-    mmApiClient = new MattermostApiClient(admin_mm, playwright.request);
+    mmApiClient = new MattermostApiClient(mattermost_admin, playwright.request);
     mmContext = await mmApiClient.authenticate();
   });
 

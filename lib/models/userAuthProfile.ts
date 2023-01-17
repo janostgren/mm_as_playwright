@@ -9,8 +9,8 @@ export interface UserAuthProfile {
 }
 
 export interface UserAuthConfig {
-  admin_mm?: UserAuthProfile
-  mattermost_a?:UserAuthProfile
+  mattermost_admin?: UserAuthProfile
+  mattermost_user1?:UserAuthProfile
   matrix_a?: UserAuthProfile
   matrix_user1?:UserAuthProfile
 }

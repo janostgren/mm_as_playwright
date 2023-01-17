@@ -4,9 +4,9 @@ import {MattermostApiClient} from '../../lib/apiModels/mattermostApiClient'
 test.describe.serial('Mattermost - API testing', () => {
   
     let apiContext;
-    test.beforeAll(async ({ playwright,admin_mm }) => {
+    test.beforeAll(async ({ playwright,mattermost_admin }) => {
         let mmApiClient:MattermostApiClient = new MattermostApiClient
-        (admin_mm,playwright.request)
+        (mattermost_admin,playwright.request)
         apiContext =await mmApiClient.authenticate()
     });
 

@@ -32,15 +32,15 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
   use: {
     actionTimeout: 10 * 1000,
     navigationTimeout: 10 * 1000,
-    admin_mm: {
+    mattermost_admin: {
       user: "admin",
       password: "Admin..123456",
       baseURL: "http://localhost:8065",
       domain: "localhost",
       bearerToken: "s537n3t8zib1tx7eyd44qzqnbr",
     },
-    mattermost_a: {
-      user: "mattermost_a",
+    mattermost_user1: {
+      user: "user1.mm",
       password: "User..1234",
       baseURL: "http://localhost:8065",
       domain: "localhost"
@@ -53,7 +53,7 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
         "MDAxN2xvY2F0aW9uIGxvY2FsaG9zdAowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMjZjaWQgdXNlcl9pZCA9IEBtYXRyaXhfYjpsb2NhbGhvc3QKMDAxNmNpZCB0eXBlID0gYWNjZXNzCjAwMjFjaWQgbm9uY2UgPSBBYl9hbWthI0daSzgtfjdICjAwMmZzaWduYXR1cmUgOReBLkPURCMNtzORS9fpogQqVa3IWN9ZEu5gXW91QTMK",
     },
     matrix_user1: {
-      user: "user1",
+      user: "user1.matrix",
       password:"User..1234",
       baseURL: "http://localhost:8008",
       additional: {
