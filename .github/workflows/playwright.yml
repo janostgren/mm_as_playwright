@@ -13,7 +13,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps --browser=chromium
+      run: npx playwright install --with-deps chromium
     - name: Run Playwright tests 
       run: npx playwright test tests/ui/*.spec.ts -c playwright.config.aws.ts
     - uses: actions/upload-artifact@v3
