@@ -80,23 +80,23 @@ test.describe("Matrix - API Send message", () => {
       });
 
     await test.step("Get channel messages from Mattermost", async () => {
-      let since: number = Date.now() - 60 * 1000;
+      let since: number = Date.now() - 30 * 1000;
 
       const apiResponse = await mmContext.get(
-        `/api/v4/channels/${theChannel.id}/posts?page=0&per_page=200&since=${since}`,
+        `/api/v4/channels/${theChannel.id}/posts?page=0&per_page=50&since=${since}`,
         {}
       );
       expect(apiResponse.ok()).toBeTruthy();
       let json = await apiResponse.json();
 
-      expect(json.order.length, "Posts found").toBeGreaterThanOrEqual(1);
+      expect(json.order.length, "Should find posts.").toBeGreaterThanOrEqual(1);
       let posts: any[] = Object.values(json.posts);
       let thePost = posts.find((post) => {
         return post.message.includes(hackerPhrase);
       });
       expect(
         thePost,
-        `Post not found with message ${hackerPhrase} in channel ${roomName}`
+        `Post with message ${hackerPhrase} should be found channel ${roomName}`
       ).toBeDefined();
 
       return 1;
