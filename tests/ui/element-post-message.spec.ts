@@ -62,7 +62,9 @@ test('Element - Post message', async ({ page,matrix_user1 }) => {
   await page.getByRole('button', { name: 'Skip verification for now' }).click();
   await page.getByRole('button', { name: 'I\'ll verify later' }).click();
   await page.getByRole('button', { name: 'Dismiss' }).click();
+  await page.getByRole('treeitem', { name: 'Home' }).getByRole('button', { name: 'Home' }).click();
   await page.getByText('#town-square:localhost').click();
+  //await page.getByText('Sports').click();
   let input=page.locator('div.mx_BasicMessageComposer_input.mx_BasicMessageComposer_input_shouldShowPillAvatar')
   await input.click()
   await input.type(`Playwright Test - Message from Element \nURL=${elementURL} risky Browser=${visible} \nTimestamp=`+Date.now().toString())

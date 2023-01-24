@@ -52,6 +52,13 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
       bearerToken:
         "MDAxN2xvY2F0aW9uIGxvY2FsaG9zdAowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMjZjaWQgdXNlcl9pZCA9IEBtYXRyaXhfYjpsb2NhbGhvc3QKMDAxNmNpZCB0eXBlID0gYWNjZXNzCjAwMjFjaWQgbm9uY2UgPSBBYl9hbWthI0daSzgtfjdICjAwMmZzaWduYXR1cmUgOReBLkPURCMNtzORS9fpogQqVa3IWN9ZEu5gXW91QTMK",
     },
+    matrix_admin: {
+      user: "admin",
+      baseURL: "http://localhost:8008",
+      domain: "localhost",
+      bearerToken:
+        "MDAxN2xvY2F0aW9uIGxvY2FsaG9zdAowMDEzaWRlbnRpZmllciBrZXkKMDAxMGNpZCBnZW4gPSAxCjAwMjNjaWQgdXNlcl9pZCA9IEBhZG1pbjpsb2NhbGhvc3QKMDAxNmNpZCB0eXBlID0gYWNjZXNzCjAwMjFjaWQgbm9uY2UgPSBXVU9yUTVRMFRnUkNjME1ACjAwMmZzaWduYXR1cmUgdYKA-yuTQ5JV5O0HWRak-48xavOYgA1MMc6A1V_Uw5kK",
+    },
     matrix_user1: {
       user: "user1.matrix",
       password:"User..1234",
@@ -60,8 +67,6 @@ const config: PlaywrightTestConfig<userAuthProfile.UserAuthConfig> = {
         elementURL:"http://localhost:8080"
       }
     },
-    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: "http://localhost:8065",
 

@@ -10,6 +10,7 @@ test.describe("Matrix - API Send message", () => {
   let mmContext: APIRequestContext;
   let mmApiClient: MatrixApiClient;
   let roomName: string = "town-square";
+  //roomName="kalle".toLocaleLowerCase()
   let hackerPhrase = faker.hacker.phrase();
 
   test.beforeAll(async ({ playwright, matrix_a, mattermost_admin }) => {
