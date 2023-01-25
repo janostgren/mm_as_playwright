@@ -9,6 +9,7 @@ test.describe("The Bridge - User Mapping", () => {
   let matrixApiClient: MatrixApiClient;
   let mmContext: APIRequestContext;
   let mmApiClient: MatrixApiClient;
+  let serverName='localhost'
 
   test.beforeAll(async ({ playwright, mattermost_admin, matrix_admin }) => {
     matrixApiClient = new MatrixApiClient(matrix_admin, playwright.request);
@@ -51,9 +52,21 @@ test.describe("The Bridge - User Mapping", () => {
             synapseUsers.push(synapseUser)
         }
         console.log(synapseUsers)
-       
-        
         return synapseUsers;
+      });
+      let matrixUsers=await test.step("Matrix Users", async () => {
+        const post = await matrixContext.post(`/_matrix/client/v3/user_directory/search`, 
+        {
+            data: {
+                limit:10000,
+                search_term:serverName
+            }
+        });
+        expect(post.ok()).toBeTruthy();
+        let response = await post.json();
+        let users=response.results
+        console.log(users)
+        return users;
       });
       pwHelpers.infoAnnotation(test.info(),`Number of Mattermost users = ${mmUsers.length}`)
       pwHelpers.infoAnnotation(test.info(),`Number of Synapse users = ${synapseUsers.length}`)
